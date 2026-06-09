@@ -3,269 +3,77 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title></title>
+<title>Főoldal</title>
 
 <style>
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    color: white;
-    background: url("hatter.jpg") no-repeat center center fixed;
-    background-size: cover;
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    color:white;
+    background:url("hatter.jpg") center center fixed;
+    background-size:cover;
 }
 
-.overlay {
-    background: rgba(0,0,0,0.65);
-    min-height: 100vh;
+.overlay{
+    background:rgba(0,0,0,.65);
+    min-height:100vh;
 }
 
-/* ===== MENÜ ===== */
-nav {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    padding: 20px;
-    position: sticky;
-    top: 0;
-    background: rgba(0,0,0,0.6);
-    backdrop-filter: blur(6px);
+nav{
+    display:flex;
+    justify-content:center;
+    gap:20px;
+    padding:20px;
+    background:rgba(0,0,0,.6);
+    backdrop-filter:blur(6px);
 }
 
-nav button {
-    background: transparent;
-    border: none;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-    padding: 10px 15px;
-    transition: 0.3s;
+nav a{
+    color:white;
+    text-decoration:none;
+    padding:10px 15px;
+    border-radius:8px;
+    transition:.3s;
 }
 
-nav button:hover {
-    background: white;
-    color: black;
-    border-radius: 8px;
+nav a:hover,
+nav a.active{
+    background:white;
+    color:black;
 }
 
-/* ===== SZEKCIÓK ===== */
-section {
-    display: none;
-    padding: 60px 20px;
-    max-width: 900px;
-    margin: auto;
+.container{
+    max-width:1000px;
+    margin:auto;
+    padding:60px 20px;
 }
 
-section.active {
-    display: block;
-}
-
-/* ===== KÁRTYA ===== */
-.card {
-    background: rgba(255,255,255,0.1);
-    padding: 20px;
-    border-radius: 15px;
-    backdrop-filter: blur(8px);
-    margin-bottom: 20px;
-}
-
-/* ===== PREVIEW KÉP ===== */
-.preview-img {
-    width: 100%;
-    max-width: 200px;
-    border-radius: 12px;
-    cursor: pointer;
-    opacity: 0.4;
-    transition: 0.3s;
-    border: 2px solid transparent;
-}
-
-.preview-img:hover {
-    opacity: 1;
-    border: 2px solid white;
-    transform: scale(1.02);
-}
-
-/* ===== LIGHTBOX ===== */
-.lightbox {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0,0,0,0.95);
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    z-index: 9999;
-}
-
-.lightbox img {
-    max-width: 90vw;
-    max-height: 90vh;
-    cursor: grab;
-    border: 2px solid black;
-    transform-origin: center center;
-    user-select: none;
-    -webkit-user-drag: none;
-}
-
-.close {
-    position: absolute;
-    top: 20px;
-    right: 30px;
-    font-size: 40px;
-    color: white;
-    cursor: pointer;
+.card{
+    background:rgba(255,255,255,.1);
+    backdrop-filter:blur(8px);
+    border-radius:15px;
+    padding:25px;
 }
 </style>
 </head>
-
 <body>
+
 <div class="overlay">
 
-<!-- MENÜ -->
 <nav>
-    <button onclick="show('home')">Főoldal</button>
-    <button onclick="show('maps')">Térképek</button>
-    <button onclick="show('images')">Képek</button>
+    <a href="index.html" class="active">Főoldal</a>
+    <a href="terkepek.html">Térképek</a>
+    <a href="kepek.html">Képek</a>
 </nav>
 
-<!-- FŐOLDAL -->
-<section id="home" class="active">
+<div class="container">
     <div class="card">
-        <h1>Üdv az oldalamon 👋</h1>
+        <h1>Üdvözöllek!</h1>
         <p></p>
     </div>
-</section>
-
-<!-- TÉRKÉPEK -->
-<section id="maps">
-    <div class="card">
-        <h2>Térképek</h2>
-
-        <img src="vbterkep.jpg"
-             onclick="openLightbox()"
-             class="preview-img"
-             alt="VBTérkép">
-    </div>
-</section>
-
-<!-- KÉPEK -->
-<section id="images">
-    <div class="card">
-        <h2>Képek</h2>
-        <p>Itt lesz a galéria.</p>
-    </div>
-</section>
-
-<!-- LIGHTBOX -->
-<div id="lightbox" class="lightbox" onclick="closeLightbox()">
-    <span class="close" onclick="closeLightbox(event)">×</span>
-    <img id="lightboxImg" src="vbterkep.png" onclick="event.stopPropagation()">
 </div>
 
-<!-- JS -->
-<script>
-function show(id) {
-    document.querySelectorAll("section").forEach(s => s.classList.remove("active"));
-    document.getElementById(id).classList.add("active");
-}
-
-/* ===== LIGHTBOX STATE ===== */
-let scale = 1;
-let posX = 0;
-let posY = 0;
-
-let dragging = false;
-let startX = 0;
-let startY = 0;
-
-const img = document.getElementById("lightboxImg");
-const box = document.getElementById("lightbox");
-
-/* ===== OPEN / CLOSE ===== */
-function openLightbox() {
-    box.style.display = "flex";
-
-    scale = 1;
-    posX = 0;
-    posY = 0;
-
-    updateTransform();
-}
-
-function closeLightbox(e) {
-    if (e) e.stopPropagation();
-    box.style.display = "none";
-}
-
-/* ===== ZOOM ===== */
-img.addEventListener("wheel", (e) => {
-    e.preventDefault();
-
-    const rect = img.getBoundingClientRect();
-
-    // egér pozíció a képhez képest
-    const mouseX = e.clientX - rect.left;
-    const mouseY = e.clientY - rect.top;
-
-    // régi scale mentése
-    const prevScale = scale;
-
-    // új scale
-    const zoomIntensity = -0.0015;
-    scale += e.deltaY * zoomIntensity;
-    scale = Math.min(Math.max(0.5, scale), 6);
-
-    // zoom arány
-    const scaleChange = scale / prevScale;
-
-    // KORREKCIÓ: hogy az egér alatti pont fix maradjon
-    posX -= (mouseX - rect.width / 2) * (scaleChange - 1);
-    posY -= (mouseY - rect.height / 2) * (scaleChange - 1);
-
-    updateTransform();
-});
-
-/* ===== DRAG START ===== */
-img.addEventListener("mousedown", (e) => {
-    dragging = true;
-
-    startX = e.clientX - posX;
-    startY = e.clientY - posY;
-
-    img.style.cursor = "grabbing";
-    e.preventDefault();
-});
-
-/* ===== DRAG MOVE ===== */
-window.addEventListener("mousemove", (e) => {
-    if (!dragging) return;
-
-    posX = e.clientX - startX;
-    posY = e.clientY - startY;
-
-    updateTransform();
-});
-
-/* ===== DRAG STOP ===== */
-window.addEventListener("mouseup", stopDrag);
-window.addEventListener("mouseleave", stopDrag);
-
-function stopDrag() {
-    if (!dragging) return;
-
-    dragging = false;
-    img.style.cursor = "grab";
-}
-
-/* ===== TRANSFORM ===== */
-function updateTransform() {
-    img.style.transform = `translate(${posX}px, ${posY}px) scale(${scale})`;
-}
-</script>
-
 </div>
+
 </body>
 </html>
