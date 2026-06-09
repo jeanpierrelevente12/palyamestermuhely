@@ -159,7 +159,7 @@ section.active {
 <!-- LIGHTBOX -->
 <div id="lightbox" class="lightbox" onclick="closeLightbox()">
     <span class="close" onclick="closeLightbox(event)">×</span>
-    <img id="lightboxImg" src="vbterkep.png">
+    <img id="lightboxImg" src="vbterkep.png" onclick="event.stopPropagation()">
 </div>
 
 <!-- JS -->
