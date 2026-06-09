@@ -1,142 +1,121 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
 
+<html lang="hu">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Főoldal</title>
-<style type="text/css">
-.style4 {
-	background-image: url('Képek/Háttér/sínek%20üres.png');
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Saját oldalam</title>
+
+<style>
+/* ====== ALAP ====== */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    color: white;
+    background: url("20260405_173741.jpg") no-repeat center center fixed;
+    background-size: cover;
 }
-.style5 {
-	text-align: center;
-	color: #FFFFCC;
+
+/* sötét overlay, hogy olvasható legyen */
+.overlay {
+    background: rgba(0,0,0,0.65);
+    min-height: 100vh;
 }
-.style6 {
-	border-width: 0px;
-	margin-left: 0px;
+
+/* ====== MENÜ ====== */
+nav {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+    position: sticky;
+    top: 0;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(6px);
 }
-.style7 {
-	background-color: #5F67FB;
+
+nav button {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 10px 15px;
+    transition: 0.3s;
 }
-.style8 {
-	background-image: url('Képek/Keret/függőleges.png');
+
+nav button:hover {
+    background: white;
+    color: black;
+    border-radius: 8px;
 }
-.style9 {
-	background-image: url('Képek/Keret/jobb%20felső.png');
+
+/* ====== SZEKCIÓK ====== */
+section {
+    display: none;
+    padding: 60px 20px;
+    max-width: 900px;
+    margin: auto;
 }
-.style10 {
-	background-image: url('Képek/Keret/bal%20felső.png');
+
+section.active {
+    display: block;
 }
-.style11 {
-	background-image: url('Képek/Keret/vízszintes.png');
-}
-.style12 {
-	background-image: url('Képek/Keret/bal%20alsó.png');
-}
-.style13 {
-	background-image: url('Képek/Keret/jobb%20alsó.png');
-}
-a {
-	color: #5F67FB;
-}
-a:visited {
-	color: #5F67FB;
-}
-.style14 {
-	border-width: 0px;
-}
-.style15 {
-	background-color: #FFFFCC;
-	background-image: url('Képek/Háttér/flirt.png');
-}
-.style16 {
-	text-align: center;
-	color: #5F67FB;
-}
-.style18 {
-	text-align: center;
+
+/* ====== MODERN HATÁS ====== */
+.card {
+    background: rgba(255,255,255,0.1);
+    padding: 20px;
+    border-radius: 15px;
+    backdrop-filter: blur(8px);
 }
 </style>
+
 </head>
 
-<body style="background-image: url('Képek/Háttér/IMG_5214.JPG')">
+<body>
+<div class="overlay">
 
-<table cellspacing="0" cellpadding="0" align="center">
-	<tr>
-		<td style="width: 20px; height: 20px" class="style10"></td>
-		<td colspan="4" style="width: 600px; height: 20px" class="style11">&nbsp;</td>
-		<td class="style9">&nbsp;</td>
-	</tr>
-	<tr>
-		<td style="width: 20px" rowspan="3" class="style8">&nbsp;</td>
-		<td style="width: 150px; height: 150px">
-		<img alt="" src="Képek/Háttér/sorompó%20gif%20bal.gif" width="150" height="150" /></td>
-		<td colspan="2" style="width: 300px; height: 150px" class="style4">
-		<h1 class="style5">Iparvágányok<br />
-		nyomában</h1>
-		</td>
-		<td style="width: 150px; height: 150px">
-		<img alt="" src="Képek/Háttér/sorompó%20gif%20jobb.gif" width="150" height="150" /></td>
-		<td style="width: 20px" rowspan="3" class="style8">&nbsp;</td>
-	</tr>
-	<tr>
-		<td class="style7">
-		<img alt="" src="Képek/Menüpontok/mozdony%20piros.png" onmouseover="this.src='Képek/Menüpontok/mozdony%20sárga.png'" onmouseout="this.src='Képek/Menüpontok/mozdony%20piros.png'" width="150" height="75" /></td>
-		<td style="width: 150px" class="style7">
-		<a href="Üzemelő.htm">
-		<img alt="" src="Képek/Menüpontok/1.kocsi%20piros.png" onmouseover="this.src='Képek/Menüpontok/1.kocsi%20sárga.png'" onmouseout="this.src='Képek/Menüpontok/1.kocsi%20piros.png'" width="150" height="75" class="style14" /></a></td>
-		<td style="width: 150px" class="style7">
-		<a href="Megszűnt.htm">
-		<img alt="" src="Képek/Menüpontok/2.kocsi%20piros.png" onmouseover="this.src='Képek/Menüpontok/2.kocsi%20sárga.png'" onmouseout="this.src='Képek/Menüpontok/2.kocsi%20piros.png'" width="150" height="75" class="style6" /></a></td>
-		<td class="style7">
-		<a href="Források.htm">
-		<img alt="" src="Képek/Menüpontok/4.kocsi%20piros.png" onmouseover="this.src='Képek/Menüpontok/4.kocsi%20sárga.png'" onmouseout="this.src='Képek/Menüpontok/4.kocsi%20piros.png'" width="150" height="75" class="style14" /></a></td>
-	</tr>
-	<tr>
-		<td colspan="4" class="style15" style="width: 600px">
-		<h2 class="style16">Főoldal&nbsp;</h2>
-		<h2 class="style18">Üdvözöllek Molnár Levente honlapján.</h2>
-		<h4>A honlapról: </h4>
-		Egy-két általam bejárt iparvágányról vagy vontatóvágányról 
-		készült vonalbejárásaimat tartalmazza. Jó nézelődést!<br />
-		<br />
-		Jelenlegi vonalak:<br />
-		<ol>
-		<li>Rákos, vontatóvágány</li>
-		<li>Rákos, ÉKV iparvágány</li>
-		<li>Diósgyőr, vasgyári iparvágány</li>
-		<li>Kőbánya hizlaló</li>
-		</ol>
-		<h4>Magamról:</h4>
-&nbsp;16 éves diák vagyok. A kőbányai Szent László Gimnáziumba 
-		járok. Péceli vagyok. Hobbim a modellvasutazás, biciklizés és 
-		számítógépezés. De szívesen járkálok fényképezővel a lapon található 
-		iparvágányok után is!Általam ajánlott hasonló oldalak:<br />
-		
-		<ul>
-		<li><a href="http://hampage.hu/trams/sinek.html">http://hampage.hu/trams/sinek.html</a></li>
-		<li><a href="http://www.vasutallomasok.hu/">http://www.vasutallomasok.hu/
-		</a></li>
-		<li><a href="http://www.vasutas.eoldal.hu/">http://www.vasutas.eoldal.hu/</a></li>
-		<li><a href="http://www.vasutas.eoldal.hu/">http://forum.index.hu/Article/showArticle?t=9101631</a></li>
-		<li><a href="http://nzvasut.freeweb.hu/">http://nzvasut.freeweb.hu/</a></li>
+<nav>
+    <button onclick="show('home')">Főoldal</button>
+    <button onclick="show('maps')">Térképek</button>
+    <button onclick="show('images')">Képek</button>
+</nav>
 
+<!-- HOME -->
 
+<section id="home" class="active">
+    <div class="card">
+        <h1>Üdv az oldalamon 👋</h1>
+        <p>Ez egy modern, egyszerű HTML alapú weboldal GitHub Pages-re.</p>
+    </div>
+</section>
 
-		</ul>
-		
-		
-		</td>
-		
-	</tr>
-	<tr>
-		<td style="height: 6px" class="style12"></td>
-		<td colspan="4" style="height: 20px" class="style11"></td>
-		<td style="height: 6px" class="style13"></td>
-	</tr>
-</table>
+<!-- TÉRKÉPEK -->
 
+<section id="maps">
+    <div class="card">
+        <h2>Térképek</h2>
+        <p>Itt lehet majd Google Maps vagy saját térképes tartalom.</p>
+    </div>
+</section>
+
+<!-- KÉPEK -->
+
+<section id="images">
+    <div class="card">
+        <h2>Képek</h2>
+        <p>Itt lesz a galéria.</p>
+    </div>
+</section>
+
+<script>
+function show(id) {
+    document.querySelectorAll("section").forEach(s => s.classList.remove("active"));
+    document.getElementById(id).classList.add("active");
+}
+</script>
+
+</div>
 </body>
-
 </html>
