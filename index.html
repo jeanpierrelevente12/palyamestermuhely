@@ -67,6 +67,55 @@ section.active {
     backdrop-filter: blur(8px);
     margin-bottom: 20px;
 }
+
+/* PREVIEW KÉP */
+.preview-img {
+    width: 100%;
+    max-width: 500px;
+    border-radius: 12px;
+    cursor: pointer;
+    opacity: 0.4;
+    transition: 0.3s;
+    border: 2px solid transparent;
+}
+
+.preview-img:hover {
+    opacity: 1;
+    border: 2px solid white;
+    transform: scale(1.02);
+}
+
+/* LIGHTBOX */
+.lightbox {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.95);
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    z-index: 9999;
+}
+
+.lightbox img {
+    max-width: 90vw;
+    max-height: 90vh;
+    cursor: grab;
+    border: 2px solid black;
+    transform-origin: center center;
+}
+
+.close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    font-size: 40px;
+    color: white;
+    cursor: pointer;
+}
 </style>
 </head>
 
@@ -91,28 +140,11 @@ section.active {
 <section id="maps">
     <div class="card">
         <h2>Térképek</h2>
-        <p>Válassz egy térképet:</p>
 
-        <button onclick="openPDF()" style="
-            padding: 10px 15px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            background: white;
-            color: black;
-            font-size: 14px;
-        ">
-            Vonatbefolyásoló berenezések térképe
-        </button>
-    </div>
-
-    <div class="card" id="pdfBox" style="display:none;">
-        <iframe 
-            src="vbterkep.pdf"
-            width="100%"
-            height="600px"
-            style="border:none; border-radius:10px;">
-        </iframe>
+        <img src="vbterkep_preview.png"
+             onclick="openLightbox()"
+             class="preview-img"
+             alt="VBTérkép">
     </div>
 </section>
 
@@ -124,6 +156,12 @@ section.active {
     </div>
 </section>
 
+<!-- LIGHTBOX -->
+<div id="lightbox" class="lightbox" onclick="closeLightbox()">
+    <span class="close" onclick="closeLightbox(event)">×</span>
+    <img id="lightboxImg" src="vbterkep.png">
+</div>
+
 <!-- JS -->
 <script>
 function show(id) {
@@ -131,8 +169,59 @@ function show(id) {
     document.getElementById(id).classList.add("active");
 }
 
-function openPDF() {
-    document.getElementById("pdfBox").style.display = "block";
+/* LIGHTBOX */
+let scale = 1;
+let posX = 0;
+let posY = 0;
+let dragging = false;
+let startX, startY;
+
+function openLightbox() {
+    const box = document.getElementById("lightbox");
+    box.style.display = "flex";
+
+    scale = 1;
+    posX = 0;
+    posY = 0;
+
+    updateTransform();
+}
+
+function closeLightbox(e) {
+    if (e) e.stopPropagation();
+    document.getElementById("lightbox").style.display = "none";
+}
+
+const img = document.getElementById("lightboxImg");
+
+img.addEventListener("wheel", (e) => {
+    e.preventDefault();
+    scale += e.deltaY * -0.001;
+    scale = Math.min(Math.max(0.5, scale), 5);
+    updateTransform();
+});
+
+img.addEventListener("mousedown", (e) => {
+    dragging = true;
+    startX = e.clientX - posX;
+    startY = e.clientY - posY;
+    img.style.cursor = "grabbing";
+});
+
+window.addEventListener("mouseup", () => {
+    dragging = false;
+    img.style.cursor = "grab";
+});
+
+window.addEventListener("mousemove", (e) => {
+    if (!dragging) return;
+    posX = e.clientX - startX;
+    posY = e.clientY - startY;
+    updateTransform();
+});
+
+function updateTransform() {
+    img.style.transform = `translate(${posX}px, ${posY}px) scale(${scale})`;
 }
 </script>
 
