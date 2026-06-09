@@ -204,8 +204,26 @@ function closeLightbox(e) {
 img.addEventListener("wheel", (e) => {
     e.preventDefault();
 
-    scale += e.deltaY * -0.001;
-    scale = Math.min(Math.max(0.5, scale), 5);
+    const rect = img.getBoundingClientRect();
+
+    // egér pozíció a képhez képest
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+
+    // régi scale mentése
+    const prevScale = scale;
+
+    // új scale
+    const zoomIntensity = -0.0015;
+    scale += e.deltaY * zoomIntensity;
+    scale = Math.min(Math.max(0.5, scale), 6);
+
+    // zoom arány
+    const scaleChange = scale / prevScale;
+
+    // KORREKCIÓ: hogy az egér alatti pont fix maradjon
+    posX -= (mouseX - rect.width / 2) * (scaleChange - 1);
+    posY -= (mouseY - rect.height / 2) * (scaleChange - 1);
 
     updateTransform();
 });
