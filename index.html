@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="hu">
 <head>
 <meta charset="UTF-8">
@@ -7,22 +6,20 @@
 <title>Saját oldalam</title>
 
 <style>
-/* ====== ALAP ====== */
 body {
     margin: 0;
     font-family: Arial, sans-serif;
     color: white;
-    background: url("20260405_173741.jpg") no-repeat center center fixed;
+    background: url("hatter.jpg") no-repeat center center fixed;
     background-size: cover;
 }
 
-/* sötét overlay, hogy olvasható legyen */
 .overlay {
     background: rgba(0,0,0,0.65);
     min-height: 100vh;
 }
 
-/* ====== MENÜ ====== */
+/* MENÜ */
 nav {
     display: flex;
     justify-content: center;
@@ -50,7 +47,7 @@ nav button:hover {
     border-radius: 8px;
 }
 
-/* ====== SZEKCIÓK ====== */
+/* SZEKCIÓK */
 section {
     display: none;
     padding: 60px 20px;
@@ -62,46 +59,65 @@ section.active {
     display: block;
 }
 
-/* ====== MODERN HATÁS ====== */
+/* KÁRTYA */
 .card {
     background: rgba(255,255,255,0.1);
     padding: 20px;
     border-radius: 15px;
     backdrop-filter: blur(8px);
+    margin-bottom: 20px;
 }
 </style>
-
 </head>
 
 <body>
 <div class="overlay">
 
+<!-- MENÜ -->
 <nav>
     <button onclick="show('home')">Főoldal</button>
     <button onclick="show('maps')">Térképek</button>
     <button onclick="show('images')">Képek</button>
 </nav>
 
-<!-- HOME -->
-
+<!-- FŐOLDAL -->
 <section id="home" class="active">
     <div class="card">
         <h1>Üdv az oldalamon 👋</h1>
-        <p>Ez egy modern, egyszerű HTML alapú weboldal GitHub Pages-re.</p>
+        <p>Ez egy modern GitHub Pages weboldal.</p>
     </div>
 </section>
 
 <!-- TÉRKÉPEK -->
-
 <section id="maps">
     <div class="card">
         <h2>Térképek</h2>
-        <p>Itt lehet majd Google Maps vagy saját térképes tartalom.</p>
+        <p>Válassz egy térképet:</p>
+
+        <button onclick="openPDF()" style="
+            padding: 10px 15px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            background: white;
+            color: black;
+            font-size: 14px;
+        ">
+            ETCS térkép
+        </button>
+    </div>
+
+    <div class="card" id="pdfBox" style="display:none;">
+        <iframe 
+            src="etcs.pdf"
+            width="100%"
+            height="600px"
+            style="border:none; border-radius:10px;">
+        </iframe>
     </div>
 </section>
 
 <!-- KÉPEK -->
-
 <section id="images">
     <div class="card">
         <h2>Képek</h2>
@@ -109,10 +125,15 @@ section.active {
     </div>
 </section>
 
+<!-- JS -->
 <script>
 function show(id) {
     document.querySelectorAll("section").forEach(s => s.classList.remove("active"));
     document.getElementById(id).classList.add("active");
+}
+
+function openPDF() {
+    document.getElementById("pdfBox").style.display = "block";
 }
 </script>
 
