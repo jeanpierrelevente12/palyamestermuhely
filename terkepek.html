@@ -122,11 +122,9 @@ nav a.active{
             onclick="openLightbox()"
             alt="VB térkép">
 
-    </div>
-    <p style="text-align:center; margin-top:10px; font-size:18px;">
-        Vonatbefolyásoló rendszerek térkép
-    </p>
+        <p class="img-label">Vonatbefolyásoló rendszerek térkép</p>
 
+    </div> 
 </div>
 
 <div id="lightbox" class="lightbox" onclick="closeLightbox()">
@@ -225,6 +223,12 @@ function updateTransform(){
     img.style.transform =
         `translate(${posX}px,${posY}px) scale(${scale})`;
 }
+    
+document.addEventListener("keydown", function(e) {// ESC gombbal is be lehessen zárni
+    if (e.key === "Escape") {
+        closeLightbox();
+    }
+});
 </script>
 
 </body>
