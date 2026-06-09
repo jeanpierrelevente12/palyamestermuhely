@@ -1,1 +1,228 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Térképek</title>
 
+<style>
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    color:white;
+    background:url("hatter.jpg") center center fixed;
+    background-size:cover;
+}
+
+.overlay{
+    background:rgba(0,0,0,.65);
+    min-height:100vh;
+}
+
+nav{
+    display:flex;
+    justify-content:center;
+    gap:20px;
+    padding:20px;
+    background:rgba(0,0,0,.6);
+    backdrop-filter:blur(6px);
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    padding:10px 15px;
+    border-radius:8px;
+    transition:.3s;
+}
+
+nav a:hover,
+nav a.active{
+    background:white;
+    color:black;
+}
+
+.container{
+    max-width:1000px;
+    margin:auto;
+    padding:60px 20px;
+}
+
+.card{
+    background:rgba(255,255,255,.1);
+    backdrop-filter:blur(8px);
+    border-radius:15px;
+    padding:25px;
+}
+
+.preview-img{
+    width:100%;
+    max-width:600px;
+    border-radius:12px;
+    cursor:pointer;
+    opacity:.4;
+    transition:.3s;
+}
+
+.preview-img:hover{
+    opacity:1;
+    transform:scale(1.02);
+}
+
+/* LIGHTBOX */
+
+.lightbox{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.95);
+    z-index:9999;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+}
+
+.lightbox img{
+    max-width:90vw;
+    max-height:90vh;
+    cursor:grab;
+    user-select:none;
+    -webkit-user-drag:none;
+}
+
+.close{
+    position:absolute;
+    top:20px;
+    right:35px;
+    font-size:45px;
+    color:white;
+    cursor:pointer;
+}
+</style>
+</head>
+<body>
+
+<div class="overlay">
+
+<nav>
+    <a href="index.html">Főoldal</a>
+    <a href="terkepek.html" class="active">Térképek</a>
+    <a href="kepek.html">Képek</a>
+</nav>
+
+<div class="container">
+
+    <div class="card">
+
+        <h1>Térképek</h1>
+
+        <img
+            src="vbterkep.jpg"
+            class="preview-img"
+            onclick="openLightbox()"
+            alt="VB térkép">
+
+    </div>
+
+</div>
+
+<div id="lightbox" class="lightbox" onclick="closeLightbox()">
+
+    <span class="close" onclick="closeLightbox(event)">×</span>
+
+    <img
+        id="lightboxImg"
+        src="vbterkep.png"
+        onclick="event.stopPropagation()">
+
+</div>
+
+</div>
+
+<script>
+const img = document.getElementById("lightboxImg");
+const box = document.getElementById("lightbox");
+
+let scale = 1;
+let posX = 0;
+let posY = 0;
+
+let dragging = false;
+let startX = 0;
+let startY = 0;
+
+function openLightbox(){
+    box.style.display="flex";
+
+    scale=1;
+    posX=0;
+    posY=0;
+
+    updateTransform();
+}
+
+function closeLightbox(e){
+    if(e) e.stopPropagation();
+    box.style.display="none";
+}
+
+img.addEventListener("wheel",(e)=>{
+
+    e.preventDefault();
+
+    const rect = img.getBoundingClientRect();
+
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+
+    const oldScale = scale;
+
+    scale += e.deltaY * -0.0015;
+    scale = Math.min(Math.max(0.5, scale), 6);
+
+    const ratio = scale / oldScale;
+
+    posX -= (mouseX - rect.width/2) * (ratio - 1);
+    posY -= (mouseY - rect.height/2) * (ratio - 1);
+
+    updateTransform();
+});
+
+img.addEventListener("mousedown",(e)=>{
+
+    dragging=true;
+
+    startX=e.clientX-posX;
+    startY=e.clientY-posY;
+
+    img.style.cursor="grabbing";
+
+    e.preventDefault();
+});
+
+window.addEventListener("mousemove",(e)=>{
+
+    if(!dragging) return;
+
+    posX=e.clientX-startX;
+    posY=e.clientY-startY;
+
+    updateTransform();
+});
+
+window.addEventListener("mouseup",stopDrag);
+window.addEventListener("mouseleave",stopDrag);
+
+function stopDrag(){
+    dragging=false;
+    img.style.cursor="grab";
+}
+
+function updateTransform(){
+    img.style.transform =
+        `translate(${posX}px,${posY}px) scale(${scale})`;
+}
+</script>
+
+</body>
+</html>
