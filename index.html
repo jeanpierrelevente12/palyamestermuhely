@@ -194,29 +194,35 @@ function closeLightbox(e) {
 
 const img = document.getElementById("lightboxImg");
 
-img.addEventListener("wheel", (e) => {
-    e.preventDefault();
-    scale += e.deltaY * -0.001;
-    scale = Math.min(Math.max(0.5, scale), 5);
-    updateTransform();
-});
-
 img.addEventListener("mousedown", (e) => {
     dragging = true;
     startX = e.clientX - posX;
     startY = e.clientY - posY;
     img.style.cursor = "grabbing";
+
+    // FONTOS: ne legyen kijelölés
+    e.preventDefault();
 });
 
 window.addEventListener("mouseup", () => {
+    stopDrag();
+});
+
+window.addEventListener("mouseleave", () => {
+    stopDrag(); // ha elhagyod az ablakot is álljon le
+});
+
+function stopDrag() {
     dragging = false;
     img.style.cursor = "grab";
-});
+}
 
 window.addEventListener("mousemove", (e) => {
     if (!dragging) return;
+
     posX = e.clientX - startX;
     posY = e.clientY - startY;
+
     updateTransform();
 });
 
